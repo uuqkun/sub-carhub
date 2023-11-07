@@ -13,6 +13,8 @@ export default async function Home({ searchParams }: { searchParams: any; }) {
     model: searchParams.model || '',
   });
 
+  console.log(allCars)
+
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (

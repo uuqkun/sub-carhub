@@ -1,8 +1,9 @@
 "use client";
 
-import { CarProps } from "@/types";
-import Image from "next/image";
 import { useState } from "react";
+import Image from "next/image";
+
+import { CarProps } from "@/types";
 import CustomButton from "./CustomButton";
 import { calculateCarRent } from "@/utils";
 import { CarDetails } from ".";

@@ -1,3 +1,7 @@
+export const cars = [
+    {}
+]
+
 export const manufacturers = [
     "Acura",
     "Alfa Romeo",
