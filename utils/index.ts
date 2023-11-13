@@ -1,14 +1,13 @@
 
-import { FilterProps } from "@/types";
+import { CarProps, FilterProps } from "@/types";
+import { NumericLiteral } from "typescript";
 
 
 // Data Sorting by using JavaScript built in sorting algorithm
-function sort(unsortedData: Object[]) {
-    // let data = new Array(unsortedData.length);
+function sort(unsortedData: CarProps[]) {
 
-    // unsortedData.forEach(ud => {
-    //     data.push(ud);
-    // });
+    let temp: Object[] = new Array(unsortedData.length);
+    
     return unsortedData.sort((a, b) => {
         let aCar = calculateCarRent(a.city_mpg, a.year);
         let bCar = calculateCarRent(b.city_mpg, b.year);
@@ -20,7 +19,7 @@ function sort(unsortedData: Object[]) {
 export async function fetchCars(filters: FilterProps) {
 
     const { manufacturer, year, model, limit, fuel } = filters;
-    
+
     const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
         {
             headers: {
@@ -196,7 +195,8 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
     // Calculate total rental rate per day  
     const rentalRatePerDay = basePricePerDay + milleageRate + ageRate;
 
-    return rentalRatePerDay.toFixed(2);
+    console.log(typeof(rentalRatePerDay.toFixed(2)));
+    return parseFloat(rentalRatePerDay.toFixed(2));
 }
 
 export const updateSearchParams = (type: string, value: string) => {
