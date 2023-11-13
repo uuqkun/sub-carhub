@@ -13,13 +13,13 @@ export default async function Home({ searchParams }: { searchParams: any; }) {
     model: searchParams.model || '',
   });
 
-  console.log(allCars)
-
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (
     <main className='overflow-hidden'>
+      {/* Hero section */}
       <Hero />
+
 
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
@@ -52,7 +52,7 @@ export default async function Home({ searchParams }: { searchParams: any; }) {
         ) : (
           <div className="mt-20">
             <h2 className="font-bold text-center text-[18px]">No results...</h2>
-            <p>{allCars?.message}</p>
+            {/* <p>{allCars?.message}</p> */}
           </div>
         )}
       </div>
