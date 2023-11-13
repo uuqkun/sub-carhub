@@ -1,20 +1,21 @@
 
 import { CarProps, FilterProps } from "@/types";
-import { NumericLiteral } from "typescript";
+import { partition } from "./quicksort";
 
 
 // Quick sort algorithm starts
-function quickSort(unsortedData: CarProps[]) {
-
+function quickSort(array: CarProps[], low: number, high: number): void {
+    if (low < high) {
+        const partitionIndex = partition(array, low, high);
+        quickSort(array, low, partitionIndex - 1);
+        quickSort(array, partitionIndex + 1, high);
+    }
 }
 
-
 // Data Sorting by using JavaScript built in sorting algorithm
-function builtInSorting(unsortedData: CarProps[]) {
+function builtInSorting(data: CarProps[]) {
 
-    let temp: Object[] = new Array(unsortedData.length);
-
-    return unsortedData.sort((a, b) => {
+    return data.sort((a, b) => {
         let aCar = calculateCarRent(a.city_mpg, a.year);
         let bCar = calculateCarRent(b.city_mpg, b.year);
 
@@ -26,6 +27,7 @@ export async function fetchCars(filters: FilterProps) {
 
     const { manufacturer, year, model, limit, fuel } = filters;
 
+    
     const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
         {
             headers: {
@@ -34,159 +36,161 @@ export async function fetchCars(filters: FilterProps) {
             },
         }
     );
-
-    const result = await response.json();
-
-    /*
-    const data = [
-        {
-            city_mpg: 18,
-            class: 'standard sport utility vehicle',
-            combination_mpg: 19,
-            cylinders: 4,
-            displacement: 2,
-            drive: '4wd',
-            fuel_type: 'gas',
-            highway_mpg: 21,
-            make: 'land rover',
-            model: 'defender 90',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 25,
-            class: 'small sport utility vehicle',
-            combination_mpg: 28,
-            cylinders: 4,
-            displacement: 2.5,
-            drive: 'fwd',
-            fuel_type: 'gas',
-            highway_mpg: 32,
-            make: 'kia',
-            model: 'sportage fwd',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 23,
-            class: 'small sport utility vehicle',
-            combination_mpg: 25,
-            cylinders: 4,
-            displacement: 2.5,
-            drive: 'awd',
-            fuel_type: 'gas',
-            highway_mpg: 28,
-            make: 'kia',
-            model: 'sportage awd',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 19,
-            class: 'standard sport utility vehicle',
-            combination_mpg: 21,
-            cylinders: 4,
-            displacement: 2,
-            drive: '4wd',
-            fuel_type: 'gas',
-            highway_mpg: 22,
-            make: 'land rover',
-            model: 'discovery',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 19,
-            class: 'standard sport utility vehicle',
-            combination_mpg: 22,
-            cylinders: 6,
-            displacement: 3,
-            drive: '4wd',
-            fuel_type: 'gas',
-            highway_mpg: 25,
-            make: 'land rover',
-            model: 'discovery mhev',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 17,
-            class: 'standard sport utility vehicle',
-            combination_mpg: 18,
-            cylinders: 4,
-            displacement: 2,
-            drive: '4wd',
-            fuel_type: 'gas',
-            highway_mpg: 20,
-            make: 'land rover',
-            model: 'defender 110',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 18,
-            class: 'standard sport utility vehicle',
-            combination_mpg: 20,
-            cylinders: 6,
-            displacement: 3,
-            drive: '4wd',
-            fuel_type: 'gas',
-            highway_mpg: 23,
-            make: 'land rover',
-            model: 'defender 110 mhev',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 18,
-            class: 'standard sport utility vehicle',
-            combination_mpg: 20,
-            cylinders: 6,
-            displacement: 3,
-            drive: '4wd',
-            fuel_type: 'gas',
-            highway_mpg: 23,
-            make: 'land rover',
-            model: 'defender 90 mhev',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 15,
-            class: 'standard sport utility vehicle',
-            combination_mpg: 16,
-            cylinders: 8,
-            displacement: 5,
-            drive: '4wd',
-            fuel_type: 'gas',
-            highway_mpg: 19,
-            make: 'land rover',
-            model: 'defender 90',
-            transmission: 'a',
-            year: 2023
-        },
-        {
-            city_mpg: 14,
-            class: 'standard sport utility vehicle',
-            combination_mpg: 16,
-            cylinders: 8,
-            displacement: 5,
-            drive: '4wd',
-            fuel_type: 'gas',
-            highway_mpg: 19,
-            make: 'land rover',
-            model: 'defender 110',
-            transmission: 'a',
-            year: 2023
-        }
-    ];
     
-    let sortedData__test = sort(data);
+    const result = await response.json();
+   
 
-    return sortedData__test;
-    */
+    // dummy data provided in exchange of api call above
+    // const cars = [
+    //     {
+    //         city_mpg: 18,
+    //         class: 'standard sport utility vehicle',
+    //         combination_mpg: 19,
+    //         cylinders: 4,
+    //         displacement: 2,
+    //         drive: '4wd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 21,
+    //         make: 'land rover',
+    //         model: 'defender 90',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 25,
+    //         class: 'small sport utility vehicle',
+    //         combination_mpg: 28,
+    //         cylinders: 4,
+    //         displacement: 2.5,
+    //         drive: 'fwd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 32,
+    //         make: 'kia',
+    //         model: 'sportage fwd',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 23,
+    //         class: 'small sport utility vehicle',
+    //         combination_mpg: 25,
+    //         cylinders: 4,
+    //         displacement: 2.5,
+    //         drive: 'awd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 28,
+    //         make: 'kia',
+    //         model: 'sportage awd',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 19,
+    //         class: 'standard sport utility vehicle',
+    //         combination_mpg: 21,
+    //         cylinders: 4,
+    //         displacement: 2,
+    //         drive: '4wd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 22,
+    //         make: 'land rover',
+    //         model: 'discovery',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 19,
+    //         class: 'standard sport utility vehicle',
+    //         combination_mpg: 22,
+    //         cylinders: 6,
+    //         displacement: 3,
+    //         drive: '4wd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 25,
+    //         make: 'land rover',
+    //         model: 'discovery mhev',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 17,
+    //         class: 'standard sport utility vehicle',
+    //         combination_mpg: 18,
+    //         cylinders: 4,
+    //         displacement: 2,
+    //         drive: '4wd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 20,
+    //         make: 'land rover',
+    //         model: 'defender 110',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 18,
+    //         class: 'standard sport utility vehicle',
+    //         combination_mpg: 20,
+    //         cylinders: 6,
+    //         displacement: 3,
+    //         drive: '4wd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 23,
+    //         make: 'land rover',
+    //         model: 'defender 110 mhev',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 18,
+    //         class: 'standard sport utility vehicle',
+    //         combination_mpg: 20,
+    //         cylinders: 6,
+    //         displacement: 3,
+    //         drive: '4wd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 23,
+    //         make: 'land rover',
+    //         model: 'defender 90 mhev',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 15,
+    //         class: 'standard sport utility vehicle',
+    //         combination_mpg: 16,
+    //         cylinders: 8,
+    //         displacement: 5,
+    //         drive: '4wd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 19,
+    //         make: 'land rover',
+    //         model: 'defender 90',
+    //         transmission: 'a',
+    //         year: 2023
+    //     },
+    //     {
+    //         city_mpg: 14,
+    //         class: 'standard sport utility vehicle',
+    //         combination_mpg: 16,
+    //         cylinders: 8,
+    //         displacement: 5,
+    //         drive: '4wd',
+    //         fuel_type: 'gas',
+    //         highway_mpg: 19,
+    //         make: 'land rover',
+    //         model: 'defender 110',
+    //         transmission: 'a',
+    //         year: 2023
+    //     }
+    // ];
 
-    return builtInSorting(result);
+    // first sorting algorithm
+    // return builtInSorting(cars);
+
+    // second sorting algorithm
+    quickSort(result, 0, result.length - 1);
+    return result;
+
 }
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
@@ -201,7 +205,6 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
     // Calculate total rental rate per day  
     const rentalRatePerDay = basePricePerDay + milleageRate + ageRate;
 
-    console.log(typeof (rentalRatePerDay.toFixed(2)));
     return parseFloat(rentalRatePerDay.toFixed(2));
 }
 
