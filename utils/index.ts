@@ -3,11 +3,17 @@ import { CarProps, FilterProps } from "@/types";
 import { NumericLiteral } from "typescript";
 
 
+// Quick sort algorithm starts
+function quickSort(unsortedData: CarProps[]) {
+
+}
+
+
 // Data Sorting by using JavaScript built in sorting algorithm
-function sort(unsortedData: CarProps[]) {
+function builtInSorting(unsortedData: CarProps[]) {
 
     let temp: Object[] = new Array(unsortedData.length);
-    
+
     return unsortedData.sort((a, b) => {
         let aCar = calculateCarRent(a.city_mpg, a.year);
         let bCar = calculateCarRent(b.city_mpg, b.year);
@@ -180,7 +186,7 @@ export async function fetchCars(filters: FilterProps) {
     return sortedData__test;
     */
 
-    return sort(result);
+    return builtInSorting(result);
 }
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
@@ -195,7 +201,7 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
     // Calculate total rental rate per day  
     const rentalRatePerDay = basePricePerDay + milleageRate + ageRate;
 
-    console.log(typeof(rentalRatePerDay.toFixed(2)));
+    console.log(typeof (rentalRatePerDay.toFixed(2)));
     return parseFloat(rentalRatePerDay.toFixed(2));
 }
 
