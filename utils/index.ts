@@ -1,7 +1,21 @@
 
 import { FilterProps } from "@/types";
-import { sort } from "./sort";
 
+
+// Data Sorting by using JavaScript built in sorting algorithm
+function sort(unsortedData: Object[]) {
+    // let data = new Array(unsortedData.length);
+
+    // unsortedData.forEach(ud => {
+    //     data.push(ud);
+    // });
+    return unsortedData.sort((a, b) => {
+        let aCar = calculateCarRent(a.city_mpg, a.year);
+        let bCar = calculateCarRent(b.city_mpg, b.year);
+
+        return aCar - bCar;
+    });
+}
 
 export async function fetchCars(filters: FilterProps) {
 
