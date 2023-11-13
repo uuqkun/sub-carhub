@@ -1,23 +1,25 @@
 
 import { FilterProps } from "@/types";
+import { sort } from "./sort";
 
 
 export async function fetchCars(filters: FilterProps) {
 
     const { manufacturer, year, model, limit, fuel } = filters;
+    
+    const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
+        {
+            headers: {
+                'X-RapidAPI-Key': '0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c',
+                'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
+            },
+        }
+    );
 
-    // const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
-    //     {
-    //         headers: {
-    //             'X-RapidAPI-Key': '0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c',
-    //             'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
-    //         },
-    //     }
-    // );
+    const result = await response.json();
 
-    // const result = await response.json();
-    // console.log(result)
-    const dummyData = [
+    /*
+    const data = [
         {
             city_mpg: 18,
             class: 'standard sport utility vehicle',
@@ -159,8 +161,13 @@ export async function fetchCars(filters: FilterProps) {
             year: 2023
         }
     ];
+    
+    let sortedData__test = sort(data);
 
-    return dummyData;
+    return sortedData__test;
+    */
+
+    return sort(result);
 }
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
