@@ -1,6 +1,13 @@
-export const cars = [
-    {}
-]
+export const sortByName = [
+    {
+        title: "Ascending",
+        value: "ascending"
+    },
+    {
+        title: "Descending",
+        value: "descending"
+    },
+];
 
 export const manufacturers = [
     "Acura",
