@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import SearchBar from "./SearchBar";
 import SearchManufacturer from "./SearchManufacturer";
 import ShowMore from "./ShowMore";
+import SortingButton from "./SortingButton";
 
 
 
@@ -21,5 +22,6 @@ export {
     SearchManufacturer,
     CarCard,
     CarDetails,
-    ShowMore
+    ShowMore,
+    SortingButton    
 }

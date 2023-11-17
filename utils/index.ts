@@ -1,4 +1,3 @@
-
 import { CarProps, FilterProps } from "@/types";
 import { partition } from "./quicksort";
 
@@ -27,7 +26,7 @@ export async function fetchCars(filters: FilterProps) {
 
     const { manufacturer, year, model, limit, fuel } = filters;
 
-    
+    // Tarik data dari API
     const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
         {
             headers: {
@@ -37,8 +36,9 @@ export async function fetchCars(filters: FilterProps) {
         }
     );
     
+    const res = await response.json();
 
-    const data = [
+    const dummy = [
         {
             city_mpg: 18,
             class: 'standard sport utility vehicle',
@@ -96,9 +96,12 @@ export async function fetchCars(filters: FilterProps) {
             year: 2023
         },
     ]
-    return await response.json();
-    // return data;
 
+    // Dikasih kembalian data berformat JSON
+    // return basicSort(res);
+
+    quickSort(res, 0, res.length - 1);
+    return res;
 }
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
