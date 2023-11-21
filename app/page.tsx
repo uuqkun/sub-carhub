@@ -41,6 +41,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
             <SortingButton />
           </div>
         </div>
+
         {!isDataEmpty ? (
           <section> 
             <div className="home__cars-wrapper">
@@ -57,7 +58,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
         ) : (
           <div className="mt-20">
             <h2 className="font-bold text-center text-[18px]">No results...</h2>
-            {/* <p>{allCars?.message}</p> */}
+            <p>{allCars?.message}</p>
           </div>
         )}
       </div>

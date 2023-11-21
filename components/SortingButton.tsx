@@ -1,16 +1,17 @@
-"use client"
+"use client";
 
 const SortingButton = () => {
-    function handleSorting(): void {
-      
-    }
-    
+  function handleSorting(): void {}
 
   return (
-    <button type="button" className="text-sm py-3 px-6 shadow-md rounded-md" onClick={handleSorting}>
-        Sort by Name
+    <button
+      type="button"
+      className="text-sm py-3 px-6 shadow-md rounded-md"
+      onClick={handleSorting}
+    >
+      Sort by Name
     </button>
-  )
-}
+  );
+};
 
-export default SortingButton
+export default SortingButton;

@@ -47,6 +47,11 @@ export interface CustomFilterProps {
     options: OptionProps[];
 }
 
+export interface CustomSortButtonProps{
+    fuel: OptionProps[],
+    yearsOfProduction: OptionProps[]
+}
+
 export interface ShowMoreProps { 
     pageNumber: number;
     isNext: boolean;
