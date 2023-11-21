@@ -1,24 +1,30 @@
+import {
+  CarCard,
+  SortingButton,
+  CustomFilter,
+  Hero,
+  SearchBar,
+  ShowMore,
+} from "@/components";
+import { fetchCars } from "@/utils";
+import { fuels, yearsOfProduction } from "@/constants";
+import React from "react";
 
-import { CarCard, SortingButton, CustomFilter, Hero, SearchBar, ShowMore } from '@/components'
-import { fetchCars } from '@/utils'
-import { fuels, yearsOfProduction } from '@/constants';
-
-export default async function Home({ searchParams }: { searchParams: any; }) {
+export default async function Home({ searchParams }: { searchParams: any }) {
   const allCars = await fetchCars({
-    manufacturer: searchParams.manufacturer || '',
+    manufacturer: searchParams.manufacturer || "",
     year: searchParams.year || 2023,
-    fuel: searchParams.fuel || '',
+    fuel: searchParams.fuel || "",
     limit: searchParams.limit || 10,
-    model: searchParams.model || '',
+    model: searchParams.model || "",
   });
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (
-    <main className='overflow-hidden'>
+    <main className="overflow-hidden">
       {/* Hero section */}
       <Hero />
-
 
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
@@ -35,16 +41,15 @@ export default async function Home({ searchParams }: { searchParams: any; }) {
             <SortingButton />
           </div>
         </div>
-
         {!isDataEmpty ? (
-          <section>
+          <section> 
             <div className="home__cars-wrapper">
               {allCars?.map((car, index) => (
                 <CarCard car={car} key={index} />
               ))}
             </div>
 
-            <ShowMore 
+            <ShowMore
               pageNumber={(searchParams.limit || 10) / 10}
               isNext={(searchParams.limit || 10) > allCars.length}
             />
@@ -57,8 +62,7 @@ export default async function Home({ searchParams }: { searchParams: any; }) {
         )}
       </div>
     </main>
-  )
+  );
 }
-
 
 // conditional rendering
