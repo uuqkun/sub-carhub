@@ -2,7 +2,7 @@ import { CarProps, FilterProps } from "@/types";
 import { partition } from "./quicksort";
 
 
-// Quick sort algorithm starts
+// Quick sort algorithm 
 export function quickSort(data: CarProps[], low: number, high: number): void {
     if (low < high) {
         const partitionIndex = partition(data, low, high);
@@ -12,7 +12,7 @@ export function quickSort(data: CarProps[], low: number, high: number): void {
 }
 
 // Data Sorting by using JavaScript built in sorting algorithm
-export function basicSort(data: CarProps[]) {
+export function JSBuiltInSortAlgorithm(data: CarProps[]) {
 
     return data.sort((a, b) => {
         let aCar = calculateCarRent(a.city_mpg, a.year);
@@ -22,6 +22,7 @@ export function basicSort(data: CarProps[]) {
     });
 }
 
+// Mengambil data dari API
 export async function fetchCars(filters: FilterProps) {
 
     const { manufacturer, year, model, limit, fuel } = filters;
@@ -97,13 +98,15 @@ export async function fetchCars(filters: FilterProps) {
         },
     ]
 
-    // Dikasih kembalian data berformat JSON
-    // return basicSort(res);
+    // Mengembalikan data result dari API yang telah di sorting
+    // return JSBuiltInSortAlgorithm(res);
 
+    // Data di sorting sebelum di return
     quickSort(res, 0, res.length - 1);
     return res;
 }
 
+// menghitung harga sewa mobil per hari
 export const calculateCarRent = (city_mpg: number, year: number) => {
     const basePricePerDay = 50;
     const milleageFactor = 0.1;
@@ -119,6 +122,7 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
     return parseFloat(rentalRatePerDay.toFixed(2));
 }
 
+// mengupdate parameter pencarian sebelum mengirim request ke API
 export const updateSearchParams = (type: string, value: string) => {
     const searchParams = new URLSearchParams(window.location.search);
 
