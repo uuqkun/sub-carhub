@@ -2,6 +2,7 @@ import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from "@/components";
 
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
+import About from "@/components/About";
 
 // komponen ini akan di render di server setelah itu di kirim ke client...
 // setelah data dari API siap
@@ -24,6 +25,8 @@ export default async function Home({ searchParams }: { searchParams: any }) {
     <main className="overflow-hidden">
       {/* Hero section */}
       <Hero />
+
+      <About />
 
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
@@ -58,7 +61,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
         ) : (
           <div className="mt-20">
             <h2 className="font-bold text-center text-[18px]">No results...</h2>
-            <p>{allCars?.message}</p>
+            {/* <p>{allCars?.message}</p> */}
           </div>
         )}
       </div>

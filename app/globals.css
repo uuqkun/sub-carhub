@@ -217,3 +217,16 @@
   @apply cursor-default select-none py-2 pl-10 pr-4;
 }
 /* END: search manufacturer styles */
+
+/* START: about section styles */
+.about {
+  @apply flex xl:flex-row flex-col gap-20 relative z-0 max-w-[1440px] mb-40 mx-auto;
+}
+
+.about__feature { 
+}
+
+.about__features { 
+  @apply mb-5 text-[20px] font-light opacity-75;
+}
+/* END: search manufacturer styles */

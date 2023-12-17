@@ -1,5 +1,6 @@
 import { CarProps, FilterProps } from "@/types";
 import { partition } from "./quicksort";
+import { mergeSort } from "./mergesort";
 
 
 // Quick sort algorithm 
@@ -28,16 +29,16 @@ export async function fetchCars(filters: FilterProps) {
     const { manufacturer, year, model, limit, fuel } = filters;
 
     // Tarik data dari API
-    const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
-        {
-            headers: {
-                'X-RapidAPI-Key': '0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c',
-                'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
-            },
-        }
-    );
-    
-    const res = await response.json();
+    // const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
+    //     {
+    //         headers: {
+    //             'X-RapidAPI-Key': '0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c',
+    //             'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
+    //         },
+    //     }
+    // );
+
+    // const res = await response.json();
 
     const dummy = [
         {
@@ -102,8 +103,9 @@ export async function fetchCars(filters: FilterProps) {
     // return JSBuiltInSortAlgorithm(res);
 
     // Data di sorting sebelum di return
-    quickSort(res, 0, res.length - 1);
-    return res;
+    // quickSort(res, 0, res.length - 1);
+    // mergeSort(res);
+    return dummy;
 }
 
 // menghitung harga sewa mobil per hari
